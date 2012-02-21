@@ -54,7 +54,7 @@ package com.as3nui.airkinect.extended.demos.simulator {
 			config.rgbEnabled = true;
 			config.rgbResolution = CameraResolution.RESOLUTION_320_240;
 
-			_kinect.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
+			_kinect.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler, false, 0, true);
 			_kinect.start(config);
 
 			initRGBCamera();
@@ -66,6 +66,8 @@ package com.as3nui.airkinect.extended.demos.simulator {
 			this.removeChildren();
 			rgbBitmap.bitmapData.dispose();
 			rgbBitmap = null;
+			_kinect.stop();
+			_kinect.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
 			this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 

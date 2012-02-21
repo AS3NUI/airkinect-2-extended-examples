@@ -77,6 +77,8 @@ package com.as3nui.airkinect.extended.demos.simulator {
 			this.removeChildren();
 			rgbBitmap.bitmapData.dispose();
 			rgbBitmap = null;
+			_kinect.stop();
+			_kinect.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
 			this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 
