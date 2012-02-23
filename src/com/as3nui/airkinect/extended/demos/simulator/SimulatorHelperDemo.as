@@ -21,8 +21,8 @@
 
 package com.as3nui.airkinect.extended.demos.simulator {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Device;
-	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
+	import com.as3nui.nativeExtensions.air.kinect.Kinect;
+	import com.as3nui.nativeExtensions.air.kinect.KinectSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.CameraResolution;
 	import com.as3nui.nativeExtensions.air.kinect.data.SkeletonJoint;
 	import com.as3nui.nativeExtensions.air.kinect.data.User;
@@ -41,15 +41,15 @@ package com.as3nui.airkinect.extended.demos.simulator {
 
 		protected var rgbBitmap:Bitmap;
 		protected var _skeletonContainer:Sprite;
-		protected var _device:Device;
+		protected var _device:Kinect;
 
 		public function SimulatorHelperDemo() { }
 
 		override protected function startDemoImplementation():void {
 			super.startDemoImplementation();
-			_device = Device.getDeviceByOS();
+			_device = Kinect.getDevice();
 
-			var setting:DeviceSettings = new DeviceSettings();
+			var setting:KinectSettings = new KinectSettings();
 			setting.skeletonEnabled = true;
 			setting.rgbEnabled = true;
 			setting.rgbResolution = CameraResolution.RESOLUTION_320_240;

@@ -21,8 +21,8 @@
 
 package com.as3nui.airkinect.extended.demos.pointcloud {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Device;
-	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
+	import com.as3nui.nativeExtensions.air.kinect.Kinect;
+	import com.as3nui.nativeExtensions.air.kinect.KinectSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.CameraResolution;
 	import com.as3nui.nativeExtensions.air.kinect.events.DeviceEvent;
 	import com.as3nui.nativeExtensions.air.kinect.events.PointCloudEvent;
@@ -36,7 +36,7 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 
 	public class PointCloudWriterDemo extends DemoBase {
 		private var _depthPoints:ByteArray;
-		private var _device:Device;
+		private var _device:Kinect;
 		private var renderer:PointCloudRenderer;
 		private var _pointCloudResolution:Point;
 
@@ -47,7 +47,7 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 			var perspectiveProjection: PerspectiveProjection = new PerspectiveProjection( );
 			perspectiveProjection.fieldOfView = 60.0;
 
-			var settings:DeviceSettings = new DeviceSettings();
+			var settings:KinectSettings = new KinectSettings();
 			settings.pointCloudEnabled = true;
 			settings.pointCloudDensity = 4;
 
@@ -56,7 +56,7 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 			renderer = new PointCloudRenderer(settings);
 			addChild(renderer);
 
-			_device = Device.getDeviceByOS();
+			_device = Kinect.getDevice();
 			_device.addEventListener(DeviceEvent.STARTED, kinectStartedHandler, false, 0, true);
 			_device.addEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false, 0, true);
 			_device.addEventListener(PointCloudEvent.POINT_CLOUD_UPDATE, pointCloudUpdateHandler, false, 0, true);

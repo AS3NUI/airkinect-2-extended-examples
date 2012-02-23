@@ -21,8 +21,8 @@
 
 package com.as3nui.airkinect.extended.demos.ui {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Device;
-	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
+	import com.as3nui.nativeExtensions.air.kinect.Kinect;
+	import com.as3nui.nativeExtensions.air.kinect.KinectSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.JointIndices;
 	import com.as3nui.nativeExtensions.air.kinect.data.SkeletonJoint;
 	import com.as3nui.nativeExtensions.air.kinect.data.User;
@@ -40,7 +40,7 @@ package com.as3nui.airkinect.extended.demos.ui {
 
 	public class BaseUIDemo extends DemoBase {
 		protected var rgbBitmap:Bitmap;
-		protected var device:Device;
+		protected var device:Kinect;
 		protected var _leftHandCursor:Cursor;
 
 		public function BaseUIDemo() {
@@ -53,9 +53,9 @@ package com.as3nui.airkinect.extended.demos.ui {
 
 			//MouseSimulator.init(stage);
 
-			device = Device.getDeviceByOS();
+			device = Kinect.getDevice();
 
-			var settings:DeviceSettings = new DeviceSettings();
+			var settings:KinectSettings = new KinectSettings();
 			settings.rgbEnabled = true;
 			settings.skeletonEnabled = true;
 
