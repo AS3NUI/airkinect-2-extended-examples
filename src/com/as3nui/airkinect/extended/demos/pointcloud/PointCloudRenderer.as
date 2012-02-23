@@ -1,6 +1,6 @@
 package com.as3nui.airkinect.extended.demos.pointcloud
 {
-	import com.as3nui.nativeExtensions.air.kinect.KinectConfig;
+	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
 	import com.as3nui.nativeExtensions.air.kinect.data.PointCloudRegion;
 
 	import flash.display.Bitmap;
@@ -47,12 +47,12 @@ package com.as3nui.airkinect.extended.demos.pointcloud
 		private var regionRendererContainer:Sprite;
 		private var _maxDepth:uint;
 		
-		public function PointCloudRenderer(config:KinectConfig, maxDepth:uint = 2048)
+		public function PointCloudRenderer(settings:DeviceSettings, maxDepth:uint = 2048)
 		{
 			_maxDepth = maxDepth;
-			_explicitWidth = config.pointCloudResolution.x;
-			_explicitHeight = config.pointCloudResolution.y;
-			_includeRGB = config.pointCloudIncludeRGB;
+			_explicitWidth = settings.pointCloudResolution.x;
+			_explicitHeight = settings.pointCloudResolution.y;
+			_includeRGB = settings.pointCloudIncludeRGB;
 			
 			_buffer = new Vector.<uint>(_explicitWidth * _explicitHeight, true );
 			

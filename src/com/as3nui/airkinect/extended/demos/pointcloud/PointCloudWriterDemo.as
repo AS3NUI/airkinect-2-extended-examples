@@ -21,10 +21,10 @@
 
 package com.as3nui.airkinect.extended.demos.pointcloud {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Kinect;
-	import com.as3nui.nativeExtensions.air.kinect.KinectConfig;
+	import com.as3nui.nativeExtensions.air.kinect.Device;
+	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.CameraResolution;
-	import com.as3nui.nativeExtensions.air.kinect.events.KinectEvent;
+	import com.as3nui.nativeExtensions.air.kinect.events.DeviceEvent;
 	import com.as3nui.nativeExtensions.air.kinect.events.PointCloudEvent;
 	import com.as3nui.nativeExtensions.air.kinect.extended.pointcloud.PointCloudWriter;
 
@@ -36,7 +36,7 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 
 	public class PointCloudWriterDemo extends DemoBase {
 		private var _depthPoints:ByteArray;
-		private var kinect:Kinect;
+		private var _device:Device;
 		private var renderer:PointCloudRenderer;
 		private var _pointCloudResolution:Point;
 
@@ -47,36 +47,41 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 			var perspectiveProjection: PerspectiveProjection = new PerspectiveProjection( );
 			perspectiveProjection.fieldOfView = 60.0;
 
-			var config:KinectConfig = new KinectConfig();
-			config.pointCloudEnabled = true;
-			config.pointCloudDensity = 4;
+			var settings:DeviceSettings = new DeviceSettings();
+			settings.pointCloudEnabled = true;
+			settings.pointCloudDensity = 4;
 
-			_pointCloudResolution = config.pointCloudResolution = CameraResolution.RESOLUTION_640_480;
+			_pointCloudResolution = settings.pointCloudResolution = CameraResolution.RESOLUTION_640_480;
 
-			renderer = new PointCloudRenderer(config);
+			renderer = new PointCloudRenderer(settings);
 			addChild(renderer);
 
-			kinect = Kinect.getKinect();
-			kinect.addEventListener(KinectEvent.STARTED, kinectStartedHandler, false, 0, true);
-			kinect.addEventListener(KinectEvent.STOPPED, kinectStoppedHandler, false, 0, true);
-			kinect.addEventListener(PointCloudEvent.POINT_CLOUD_UPDATE, pointCloudUpdateHandler, false, 0, true);
+			_device = Device.getDeviceByOS();
+			_device.addEventListener(DeviceEvent.STARTED, kinectStartedHandler, false, 0, true);
+			_device.addEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false, 0, true);
+			_device.addEventListener(PointCloudEvent.POINT_CLOUD_UPDATE, pointCloudUpdateHandler, false, 0, true);
 
-			kinect.start(config);
+			_device.start(settings);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		}
 
 		override protected function stopDemoImplementation():void {
 			super.stopDemoImplementation();
 
+			_device.removeEventListener(DeviceEvent.STARTED, kinectStartedHandler, false);
+			_device.removeEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false);
+			_device.removeEventListener(PointCloudEvent.POINT_CLOUD_UPDATE, pointCloudUpdateHandler, false);
+
+
 			stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			this.removeChildren();
 		}
 
-		protected function kinectStartedHandler(event:KinectEvent):void {
+		protected function kinectStartedHandler(event:DeviceEvent):void {
 
 		}
 
-		protected function kinectStoppedHandler(event:KinectEvent):void {
+		protected function kinectStoppedHandler(event:DeviceEvent):void {
 
 		}
 

@@ -21,8 +21,8 @@
 
 package com.as3nui.airkinect.extended.demos.simulator {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Kinect;
-	import com.as3nui.nativeExtensions.air.kinect.KinectConfig;
+	import com.as3nui.nativeExtensions.air.kinect.Device;
+	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.CameraResolution;
 	import com.as3nui.nativeExtensions.air.kinect.data.SkeletonJoint;
 	import com.as3nui.nativeExtensions.air.kinect.data.User;
@@ -41,21 +41,21 @@ package com.as3nui.airkinect.extended.demos.simulator {
 
 		protected var rgbBitmap:Bitmap;
 		protected var _skeletonContainer:Sprite;
-		protected var _kinect:Kinect;
+		protected var _device:Device;
 
 		public function SimulatorHelperDemo() { }
 
 		override protected function startDemoImplementation():void {
 			super.startDemoImplementation();
-			_kinect = Kinect.getKinect();
+			_device = Device.getDeviceByOS();
 
-			var config:KinectConfig = new KinectConfig();
-			config.skeletonEnabled = true;
-			config.rgbEnabled = true;
-			config.rgbResolution = CameraResolution.RESOLUTION_320_240;
+			var setting:DeviceSettings = new DeviceSettings();
+			setting.skeletonEnabled = true;
+			setting.rgbEnabled = true;
+			setting.rgbResolution = CameraResolution.RESOLUTION_320_240;
 
-			_kinect.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler, false, 0, true);
-			_kinect.start(config);
+			_device.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler, false, 0, true);
+			_device.start(setting);
 
 			initRGBCamera();
 			initDemo();
@@ -66,8 +66,8 @@ package com.as3nui.airkinect.extended.demos.simulator {
 			this.removeChildren();
 			rgbBitmap.bitmapData.dispose();
 			rgbBitmap = null;
-			_kinect.stop();
-			_kinect.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
+			_device.stop();
+			_device.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
 			this.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 
@@ -89,7 +89,7 @@ package com.as3nui.airkinect.extended.demos.simulator {
 		}
 
 		protected function initDemo():void {
-			SkeletonSimulatorHelper.init(stage, _kinect);
+			SkeletonSimulatorHelper.init(stage, _device);
 
 			_skeletonContainer = new Sprite();
 			this.addChild(_skeletonContainer);
@@ -105,7 +105,7 @@ package com.as3nui.airkinect.extended.demos.simulator {
 		protected function drawSkeletons():void {
 			_skeletonContainer.removeChildren();
 
-			for each(var user:User in _kinect.users)
+			for each(var user:User in _device.users)
 			{
 				if(user.hasSkeleton)
 				{

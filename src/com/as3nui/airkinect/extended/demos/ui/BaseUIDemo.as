@@ -21,13 +21,13 @@
 
 package com.as3nui.airkinect.extended.demos.ui {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.nativeExtensions.air.kinect.Kinect;
-	import com.as3nui.nativeExtensions.air.kinect.KinectConfig;
+	import com.as3nui.nativeExtensions.air.kinect.Device;
+	import com.as3nui.nativeExtensions.air.kinect.DeviceSettings;
 	import com.as3nui.nativeExtensions.air.kinect.constants.JointIndices;
 	import com.as3nui.nativeExtensions.air.kinect.data.SkeletonJoint;
 	import com.as3nui.nativeExtensions.air.kinect.data.User;
 	import com.as3nui.nativeExtensions.air.kinect.events.CameraImageEvent;
-	import com.as3nui.nativeExtensions.air.kinect.events.KinectEvent;
+	import com.as3nui.nativeExtensions.air.kinect.events.DeviceEvent;
 	import com.as3nui.nativeExtensions.air.kinect.extended.ui.helpers.MouseSimulator;
 	import com.as3nui.nativeExtensions.air.kinect.extended.ui.managers.UIManager;
 	import com.as3nui.nativeExtensions.air.kinect.extended.ui.objects.Cursor;
@@ -40,7 +40,7 @@ package com.as3nui.airkinect.extended.demos.ui {
 
 	public class BaseUIDemo extends DemoBase {
 		protected var rgbBitmap:Bitmap;
-		protected var kinect:Kinect;
+		protected var device:Device;
 		protected var _leftHandCursor:Cursor;
 
 		public function BaseUIDemo() {
@@ -53,17 +53,17 @@ package com.as3nui.airkinect.extended.demos.ui {
 
 			//MouseSimulator.init(stage);
 
-			kinect = Kinect.getKinect();
+			device = Device.getDeviceByOS();
 
-			var config:KinectConfig = new KinectConfig();
-			config.rgbEnabled = true;
-			config.skeletonEnabled = true;
+			var settings:DeviceSettings = new DeviceSettings();
+			settings.rgbEnabled = true;
+			settings.skeletonEnabled = true;
 
-			kinect.addEventListener(KinectEvent.STARTED, kinectStartedHandler, false, 0, true);
-			kinect.addEventListener(KinectEvent.STOPPED, kinectStoppedHandler, false, 0, true);
-			kinect.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler, false, 0, true);
+			device.addEventListener(DeviceEvent.STARTED, kinectStartedHandler, false, 0, true);
+			device.addEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false, 0, true);
+			device.addEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler, false, 0, true);
 
-			kinect.start(config);
+			device.start(settings);
 
 			initRGBCamera();
 			createCursor();
@@ -78,17 +78,17 @@ package com.as3nui.airkinect.extended.demos.ui {
 			rgbBitmap.bitmapData.dispose();
 			rgbBitmap = null;
 
-			kinect.stop();
-			kinect.removeEventListener(KinectEvent.STARTED, kinectStartedHandler, false);
-			kinect.removeEventListener(KinectEvent.STOPPED, kinectStoppedHandler, false);
-			kinect.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
+			device.stop();
+			device.removeEventListener(DeviceEvent.STARTED, kinectStartedHandler, false);
+			device.removeEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false);
+			device.removeEventListener(CameraImageEvent.RGB_IMAGE_UPDATE, rgbImageUpdateHandler);
 		}
 
-		protected function kinectStartedHandler(event:KinectEvent):void {
+		protected function kinectStartedHandler(event:DeviceEvent):void {
 
 		}
 
-		protected function kinectStoppedHandler(event:KinectEvent):void {
+		protected function kinectStoppedHandler(event:DeviceEvent):void {
 
 		}
 
@@ -116,8 +116,8 @@ package com.as3nui.airkinect.extended.demos.ui {
 
 		private function enterFrameHandler(event:Event):void {
 
-			if(kinect.usersWithSkeleton.length >0){
-				var user:User = kinect.usersWithSkeleton[0];
+			if(device.usersWithSkeleton.length >0){
+				var user:User = device.usersWithSkeleton[0];
 				var leftHand:SkeletonJoint = user.leftHand;
 
 				var pad:Number = .3;
