@@ -23,7 +23,6 @@ package com.as3nui.airkinect.extended.demos.ui {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
 	import com.as3nui.nativeExtensions.air.kinect.Kinect;
 	import com.as3nui.nativeExtensions.air.kinect.KinectSettings;
-	import com.as3nui.nativeExtensions.air.kinect.constants.JointIndices;
 	import com.as3nui.nativeExtensions.air.kinect.data.SkeletonJoint;
 	import com.as3nui.nativeExtensions.air.kinect.data.User;
 	import com.as3nui.nativeExtensions.air.kinect.events.CameraImageEvent;
@@ -109,7 +108,7 @@ package com.as3nui.airkinect.extended.demos.ui {
 			circle.graphics.beginFill(0x00ff00);
 			circle.graphics.drawCircle(0, 0, 20);
 
-			_leftHandCursor = new Cursor("_kinect_", JointIndices.LEFT_HAND, circle);
+			_leftHandCursor = new Cursor("_kinect_", 1, circle);
 			UIManager.addCursor(_leftHandCursor);
 			_leftHandCursor.enabled = false;
 		}
