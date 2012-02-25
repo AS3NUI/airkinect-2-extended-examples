@@ -81,9 +81,7 @@ package
 			}
 			
 			//start default demo
-//			currentDemoClass = UISandboxDemo;
-
-			currentDemoClass = SimulatorHelperDemo;
+			currentDemoClass = UISandboxDemo;
 
 			stage.addEventListener(Event.RESIZE, resizeHandler, false, 0, true);
 		}

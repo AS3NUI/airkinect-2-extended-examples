@@ -68,10 +68,10 @@ package com.as3nui.airkinect.extended.demos.pointcloud {
 		override protected function stopDemoImplementation():void {
 			super.stopDemoImplementation();
 
+			_device.stop();
 			_device.removeEventListener(DeviceEvent.STARTED, kinectStartedHandler, false);
 			_device.removeEventListener(DeviceEvent.STOPPED, kinectStoppedHandler, false);
 			_device.removeEventListener(PointCloudEvent.POINT_CLOUD_UPDATE, pointCloudUpdateHandler, false);
-
 
 			stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 			this.removeChildren();
