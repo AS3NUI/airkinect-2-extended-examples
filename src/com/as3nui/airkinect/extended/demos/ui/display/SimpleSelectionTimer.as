@@ -35,11 +35,11 @@ package com.as3nui.airkinect.extended.demos.ui.display {
 
 			this.graphics.lineStyle(1);
 			this.graphics.beginFill(0xffffff, .4);
-			this.graphics.drawRect(0,0,_size, _size);
+			this.graphics.drawRect(-_size/2,-_size/2,_size, _size);
 
 			this.graphics.lineStyle(0);
 			this.graphics.beginFill(_color, 1);
-			this.graphics.drawRect(0,_size, _size, -(_progress * _size));
+			this.graphics.drawRect(-_size/2,_size/2, _size, -(_progress * _size));
 		}
 
 		override public function onProgress(progress:Number):void {
