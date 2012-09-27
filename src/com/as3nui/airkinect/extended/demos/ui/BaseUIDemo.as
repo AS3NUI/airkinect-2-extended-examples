@@ -50,7 +50,7 @@ package com.as3nui.airkinect.extended.demos.ui {
 			super.startDemoImplementation();
 			UIManager.init(stage);
 
-			//MouseSimulator.init(stage);
+			MouseSimulator.init(stage);
 
 			device = Kinect.getDevice();
 
@@ -122,15 +122,15 @@ package com.as3nui.airkinect.extended.demos.ui {
 				var pad:Number = .3;
 
 				_leftHandCursor.enabled = true;
-				if(leftHand.positionRelative.x > pad || leftHand.positionRelative.x < -pad) _leftHandCursor.enabled = false;
-				if(leftHand.positionRelative.y > pad && leftHand.positionRelative.y < -pad) _leftHandCursor.enabled = false;
+				if(leftHand.position.worldRelative.x > pad || leftHand.position.worldRelative.x < -pad) _leftHandCursor.enabled = false;
+				if(leftHand.position.worldRelative.y > pad && leftHand.position.worldRelative.y < -pad) _leftHandCursor.enabled = false;
 
 				if(!_leftHandCursor.enabled) return;
 
 
-				var xPos:Number = (leftHand.positionRelative.x + pad) / (pad*2);
-				var yPos:Number = (-leftHand.positionRelative.y + pad) / (pad*2);
-				_leftHandCursor.update(xPos,  yPos,  leftHand.position.z);
+				var xPos:Number = (leftHand.position.worldRelative.x + pad) / (pad*2);
+				var yPos:Number = (-leftHand.position.worldRelative.y + pad) / (pad*2);
+				_leftHandCursor.update(xPos,  yPos,  leftHand.position.worldRelative.z);
 			}
 		}
 

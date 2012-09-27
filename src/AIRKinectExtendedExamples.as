@@ -1,9 +1,6 @@
 package
 {
 	import com.as3nui.airkinect.extended.demos.core.DemoBase;
-	import com.as3nui.airkinect.extended.demos.pointcloud.PointCloudWriterDemo;
-	import com.as3nui.airkinect.extended.demos.simulator.SimulatorDemo;
-	import com.as3nui.airkinect.extended.demos.simulator.SimulatorHelperDemo;
 	import com.as3nui.airkinect.extended.demos.ui.UICrankHandleDemo;
 	import com.as3nui.airkinect.extended.demos.ui.UIHandleDemo;
 	import com.as3nui.airkinect.extended.demos.ui.UIHotSpotDemo;
@@ -30,10 +27,7 @@ package
 			{label: "UI CrankHandle Demo", data: UICrankHandleDemo},
 			{label: "UI TargetDemo", data: UITargetDemo},
 			{label: "UI HotSpot Demo", data: UIHotSpotDemo},
-			{label: "UI RepeatHandle Demo", data: UIRepeatHandleDemo},
-			{label: "PointCloud Writer Demo", data: PointCloudWriterDemo},
-			{label: "Simulator Demo", data: SimulatorDemo},
-			{label: "Simulator Helper Demo", data: SimulatorHelperDemo}
+			{label: "UI RepeatHandle Demo", data: UIRepeatHandleDemo}
 		]);
 		
 		private var _currentDemoIndex:int = -1;
