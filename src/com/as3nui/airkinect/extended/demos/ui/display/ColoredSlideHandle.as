@@ -34,15 +34,15 @@ package com.as3nui.airkinect.extended.demos.ui.display {
 
 			var circle:Shape = new Shape();
 			circle.graphics.beginFill(_color);
-			circle.graphics.drawCircle(0,0,_radius);
+			circle.graphics.drawCircle(_radius,_radius,_radius);
 
 			var selectedCircle:Shape = new Shape();
 			selectedCircle.graphics.beginFill(0x0000ff);
-			selectedCircle.graphics.drawCircle(0,0,_radius);
+			selectedCircle.graphics.drawCircle(_radius,_radius,_radius);
 
 			var disabledIcon:Shape = new Shape();
 			disabledIcon.graphics.beginFill(0xeeeeee);
-			disabledIcon.graphics.drawCircle(0,0,_radius);
+			disabledIcon.graphics.drawCircle(_radius,_radius,_radius);
 
 			var track:Shape = new Shape();
 			track.graphics.beginFill(0x0000ff, .5);
